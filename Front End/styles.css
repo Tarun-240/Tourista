@@ -1,0 +1,491 @@
+/*
+ * This CSS file replicates the visual style of the original application,
+ * which used Tailwind CSS utility classes.
+ */
+
+/* General and Body Styles (from App.tsx/index.html body classes) */
+/* Add this near the top of your CSS file */
+
+
+
+*, *::before, *::after {
+    box-sizing: border-box; /* Crucial for preventing padding/border from adding to total width */
+}
+:root {
+    --primary-color: #F06D45; /* Orange */
+    --secondary-color: #B75774; /* Rose/Pink */
+    --accent-color: #6E3CB0; /* Violet */
+    --light-bg: #f9f4f1; /* Light background color for the new section */
+}
+/* body{
+ font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+     background:#F8FAFC;
+
+} */
+body {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+     min-height: 100vh;
+     background:#F8FAFC;
+}
+.navbar {
+       /* Remove horizontal padding here; add it to the outer container for edge-to-edge background image */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 5%;
+        /* Use percentage or rem for padding to push content away from screen edges */
+        width: 100%;
+        /* Ensure all navbar content is on top of the banner image filter */
+        position: relative;
+        z-index: 20;
+}
+
+/* Styling for the .logo */
+.logo {
+ display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* Reset font properties as they are now handled by the .logo-text or are irrelevant for the image */
+    font-size: 0;
+    font-weight: normal;
+    
+}
+
+
+
+.logo img{
+    height: 150px;
+    width: auto;
+    display: block !important;
+}
+
+.logo .logo-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--logo-color);
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: none;
+}
+
+
+.navbar .logo {
+    width: 150px;
+    height: 40px;
+}
+/* Styling for the navigation list */
+.navbar ul {
+    display: none; /* Hidden by default on mobile */
+}
+
+@media (min-width: 768px) {
+    .navbar ul {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem; 
+        align-items: center; 
+    }
+    
+    /* Ensure the logo image is hidden on desktop to show the text fallback */
+    /* .navbar img { 
+        display: none; 
+    } */
+    
+    /* Show the logo text on desktop */
+    /* .logo::before { 
+        content: "Tourista"; 
+    } */
+}
+
+@media (max-width: 767px) {
+    /* Style for the visible button/link on mobile (Sign Up) */
+    .navbar ul li a.btn-nav {
+        /* This ensures the Sign Up button is styled correctly on mobile if visible */
+        padding: 0.5rem 1rem;
+        border: 1px solid white;
+        border-radius: 0.5rem;
+    }
+    /* On mobile, only display the 'Sign Up' link (last child) as an action button */
+    .navbar ul {
+        display: flex; 
+        list-style: none; 
+        gap: 1rem;
+    }
+    .navbar ul li:first-child {
+        display: none; /* Hide Explore States link on small screens */
+    }
+}
+    
+.navbar ul li a {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    padding: 0.5rem 0;
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem; 
+}
+/* .navbar ul li:first-child :hover{
+        color: #fff;
+}
+.navbar ul li  a:first-child :hover{
+        color: #fff;
+} */
+    
+/* Custom style for the Sign Up button link on desktop */
+/* styles.css */
+
+/* This class uses !important to ensure it overrides any conflicting display properties */
+.is-hidden {
+    display: none !important; 
+}
+.navbar ul li a.btn-nav {
+    color: black;
+    background-color: #F8FAFC;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px; /* Fully rounded */
+    font-weight: 700;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar ul li a.btn-nav:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom: none; 
+}
+
+
+.navbar ul li a:hover:not(.btn-nav) {
+    color: var(--primary-color);
+}
+
+/* Styling for the .active link */
+.navbar ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.bg-slate-50 {
+    background-color: #f8fafc; /* Tailwind: bg-slate-50 */
+}
+
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.font-sans {
+    font-family:"Montserrat", sans-serif, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Header Styles (from Header component and App.tsx wrapper) */
+#header {
+    background-color: white; /* Tailwind: bg-white */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-md */
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#header > div {
+    max-width: 80rem; /* Tailwind: max-w-7xl */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem; /* Tailwind: px-4 */
+    padding-right: 1rem;
+    padding-top: 1rem; /* Tailwind: py-4 */
+    padding-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+    #header > div {
+        padding-left: 1.5rem; /* Tailwind: sm:px-6 */
+        padding-right: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    #header > div {
+        padding-left: 2rem; /* Tailwind: lg:px-8 */
+        padding-right: 2rem;
+    }
+}
+
+/* Styling for the new "Explore India's States" section */
+.hero-text-section {
+    text-align: center;
+    padding-top: 3; /* Tailwind: pt-12 (to match visual spacing) */
+    padding-bottom: 2rem; /* Tailwind: pb-8 */
+    max-width: 600px; /* Constrain width for the subtitle */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-title {
+    font-size: 2.5rem; /* Large font size */
+    font-weight: 700; /* Bold */
+    /* Color matching the violet/purple from your palette */
+    /* color: var(--accent-color);  */
+    margin-bottom: 0.5rem; /* Small space below the title */
+    /* color: linear-gradient(
+        to right, 
+        var(--secondary-color), /* #B75774 */
+        /* var(--accent-color)    /* #6E3CB0  */
+    background: linear-gradient(
+        to right, 
+        var(--secondary-color), /* #B75774 */
+        var(--accent-color)    /* #6E3CB0 */
+    );
+    
+    /* 2. Clip the Background to the Text */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* 3. Make the Text Transparent to Show the Background */
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.125rem; /* Medium font size */
+    color: #4b5563; /* Tailwind: text-gray-600 */
+    line-height: 1.5;
+}
+
+.text-3xl {
+    font-size: 1.875rem; /* Tailwind: text-3xl */
+    line-height: 2.25rem;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-indigo-600 {
+    color: #4f46e5; /* Tailwind: text-indigo-600 */
+}
+
+/* Footer Styles */
+footer {
+    text-align: center; /* Tailwind: text-center */
+    padding-top: 1.5rem; /* Tailwind: py-6 */
+    padding-bottom: 1.5rem;
+    color: #6b7280; /* Tailwind: text-gray-500 */
+    font-size: 0.875rem; /* Tailwind: text-sm */
+}
+
+
+/* StateGrid Styles */
+.state-grid-container {
+    max-width: 80rem; /* Tailwind: max-w-7xl */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem; /* Tailwind: p-8 */
+}
+
+.state-grid {
+    display: grid;
+    gap: 1.5rem; /* Tailwind: gap-6 */
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+    .state-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* Tailwind: sm:grid-cols-2 */
+    }
+}
+
+@media (min-width: 1024px) {
+    .state-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr)); /* Tailwind: lg:grid-cols-3 */
+    }
+}
+
+/* StateCard Styles */
+.state-card {
+    background-color: white; /* Tailwind: bg-white */
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    overflow: hidden; /* Tailwind: overflow-hidden */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-xl */
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    border: 1px solid #e5e7eb; /* Tailwind: border border-gray-200 */
+}
+
+.state-card:hover {
+    transform: translateY(-4px); /* Tailwind: hover:translate-y-[-4px] */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 8px 10px -6px rgba(0, 0, 0, 0.2);
+}
+
+.state-card-image {
+    width: 100%;
+    height: 12rem; /* Tailwind: h-48 */
+    object-fit: cover; /* Tailwind: object-cover */
+}
+
+.state-card-content {
+    padding: 1.5rem; /* Tailwind: p-6 */
+}
+
+.state-card-name {
+    font-size: 1.5rem; /* Tailwind: text-xl */
+    line-height: 2rem;
+    font-weight: 600; /* Tailwind: font-semibold */
+    color: #1f2937; /* Tailwind: text-gray-800 */
+    margin-bottom: 0.5rem;
+}
+
+.state-card-description {
+    color: #4b5563; /* Tailwind: text-gray-600 */
+    font-size: 0.875rem; /* Tailwind: text-sm */
+}
+
+/* StateDetail Styles */
+.state-detail-container {
+    max-width: 80rem; /* Tailwind: max-w-7xl */
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem; /* Tailwind: p-8 */
+}
+
+.state-detail-card {
+    background-color: white; /* Tailwind: bg-white */
+    border-radius: 0.75rem; /* Tailwind: rounded-xl */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); /* Tailwind: shadow-2xl */
+    padding: 2rem; /* Tailwind: p-8 */
+}
+
+.detail-back-button {
+    color: black; /* Tailwind: text-indigo-600 */
+    font-weight: 500; /* Tailwind: font-medium */
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem; /* Tailwind: mb-6 */
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.detail-back-button:hover {
+    text-decoration: underline;
+}
+
+.detail-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .detail-header {
+        flex-direction: row;
+        gap: 2rem;
+    }
+}
+
+.detail-image {
+    width: 100%;
+    height: 16rem; /* Tailwind: h-64 */
+    object-fit: cover;
+    border-radius: 0.5rem; /* Tailwind: rounded-lg */
+    margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .detail-image-wrapper {
+        flex: 1;
+        max-width: 40%;
+    }
+    .detail-image {
+        margin-bottom: 0;
+        height: auto;
+        min-height: 256px; /* Enforce min height */
+    }
+}
+
+
+.detail-info {
+    flex: 1;
+}
+
+.detail-name {
+    font-size: 2.5rem; /* Tailwind: text-4xl */
+    line-height: 1;
+    font-weight: 700;
+    color: #111827; /* Tailwind: text-gray-900 */
+    margin-bottom: 0.75rem; /* Tailwind: mb-3 */
+}
+
+.detail-short-desc {
+    font-size: 1.125rem; /* Tailwind: text-lg */
+    color: #4b5563; /* Tailwind: text-gray-600 */
+    margin-bottom: 1rem; /* Tailwind: mb-4 */
+}
+
+.detail-time-to-visit {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #1f2937; /* Tailwind: text-gray-800 */
+}
+
+.detail-section-title {
+    font-size: 1.875rem; /* Tailwind: text-3xl */
+    font-weight: 700;
+    color: #1f2937; /* Tailwind: text-gray-800 */
+    border-bottom: 2px solid #e5e7eb; /* Tailwind: border-b-2 border-gray-200 */
+    padding-bottom: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem; /* Tailwind: my-6 */
+}
+
+.detail-long-desc {
+    color: #374151; /* Tailwind: text-gray-700 */
+    line-height: 1.75; /* Tailwind: leading-relaxed */
+    margin-bottom: 2rem;
+}
+
+.places-list {
+    display: grid;
+    gap: 1rem; /* Tailwind: space-y-4 */
+}
+
+.place-item {
+    padding: 1rem;
+    background-color: #f3f4f6;
+    border-radius: 0.5rem;
+    border-left: 4px solid #f1ab73;
+    
+    /* 💡 NEW: Use flexbox for horizontal layout */
+    display: flex; 
+    gap: 1rem; /* Space between image and text */
+}
+
+.place-name {
+    font-size: 1.125rem; /* Tailwind: text-lg */
+    font-weight: 600;
+    color: #1f2937; /* Tailwind: text-gray-800 */
+    margin-bottom: 0.25rem;
+}
+
+.place-description {
+    color: #4b5563; /* Tailwind: text-gray-600 */
+    font-size: 0.9375rem;
+}
+.place-item-image {
+    width: 50%; /* Fixed width for the thumbnail */
+    height: 100%; /* Fixed height for the thumbnail */
+    object-fit: cover;
+    border-radius: 0.3rem;
+    flex-shrink: 0; /* Prevents image from shrinking */
+}
+
+/* Scroll to top when showing detail */
+/* .scroll-to-top {
+    /* Used to ensure scrolling to top on view change, handled in JS */

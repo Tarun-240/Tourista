@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tourista - Discover India's Wonders</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <div class="banner">
+        <nav class="navbar">
+
+
+            <div class="logo">
+                <img src="img1.png" alt="Torista Logo">
+                <span class="logo-text">Torista</span>
+            </div>
+            <ul>
+
+                <li><a href=""><i class="fas fa-map-marker-alt"></i>Explore States</a></li>
+
+                <li><a class="btn-nav" href="#">Get Started</a></li>
+            </ul>
+        </nav>
+
+        <div class="center">
+            <h1>Discover India's Wonders</h1>
+            <h2>Plan your perfect Indian adventure across 29 states with personalized itineraries</h2>
+            <div class="buttons">
+                <button>Start Planning</button>
+                <button class="btn2">Explore States</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="feature-section">
+        <h2>Why Choose Tourista?</h2>
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="card-icon" style="color: var(--primary-color);">
+                    <i class="fas fa-map-marker-alt" style="font-size: 200%;"></i>
+                </div>
+                <div class="card-title">29 States Covered</div>
+                <div class="card-text">
+                    Explore every corner of India with detailed information about tourist destinations.
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon" style="color: var(--accent-color);">
+                    <i class="fas fa-heart" style="font-size: 200%;"></i>
+                </div>
+                <div class="card-title">Personalized Plans</div>
+                <div class="card-text">
+                    Get recommendations based on your interests and travel preferences.
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-icon" style="color: #008080;">
+                    <i class="fas fa-calendar-alt" style="font-size: 200%;"></i>
+                </div>
+                <div class="card-title">Smart Itineraries</div>
+                <div class="card-text">
+                    Plan day-by-day itineraries optimized for your vacation duration.
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <div class="explore">
+        <!-- <div class="logo-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="11" stroke="#FF7A4B" stroke-width="2" />
+                <path d="M12 4C10.5 5 8 8 8 12C8 16 12 18 12 20C12 18 16 16 16 12C16 8 13.5 5 12 4Z" fill="#FF7A4B" />
+                <path d="M12 4C11.5 6 10 9 10 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+                <path d="M12 4C12.5 6 14 9 14 12" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+        </div> -->
+        <h1 class="main-heading">Ready to Start Your Journey?</h1>
+
+        <p class="subtext">
+            Join thousands of travelers who've discovered India's hidden gems with Torista
+        </p>
+
+        <button id="cta-button">
+            Get Started Free
+        </button>
+    </div>
+    <script>
+        document.getElementById('cta-button').addEventListener('click', function () {
+            window.location.href = 'explore_states.html';
+        });
+    </script>
+    <script src="main_script.js"></script>
+</body>
+
+</html>

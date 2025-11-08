@@ -1,0 +1,131 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Trip Planner Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
+    .card { border-radius: 8px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); margin-bottom: 12px;}
+    .btn { padding: 8px 12px; border: none; border-radius:6px; cursor:pointer; }
+    .btn-primary { background: linear-gradient(90deg,#6c5ce7,#00b894); color:white; }
+    .btn-secondary { background:#dfe6e9; }
+    #loading { display:none; padding: 20px; text-align:center; }
+    #plan { white-space: pre-wrap; background:#f7f7f7; padding:12px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <h2>Trip Planner</h2>
+
+  <div id="auth" class="card">
+    <h3>Sign up / Login</h3>
+    <input id="name" placeholder="Name" /><br/><br/>
+    <input id="email" placeholder="Email" /><br/><br/>
+    <input id="password" type="password" placeholder="Password" /><br/><br/>
+    <button id="signup" class="btn btn-primary">Sign up</button>
+    <button id="login" class="btn btn-secondary">Login</button>
+    <div id="userInfo"></div>
+  </div>
+
+  <div class="card">
+    <button id="planBtn" class="btn btn-primary">Plan your trip</button>
+  </div>
+
+  <div id="formCard" class="card" style="display:none;">
+    <h3>Create Trip</h3>
+    <input id="from" placeholder="From city" /><br/><br/>
+    <input id="to" placeholder="To city" /><br/><br/>
+    <input id="days" type="number" min="1" value="3" /><br/><br/>
+    <label><input type="radio" name="type" value="solo" checked/> Solo trip</label>
+    <label><input type="radio" name="type" value="group" /> Group travel</label><br/><br/>
+    <button id="generate" class="btn btn-primary">Generate</button>
+  </div>
+
+  <div id="loading" class="card">
+    <h3>Generating your plan...</h3>
+    <div id="spinner">⏳ Loading — this may take a few seconds</div>
+  </div>
+
+  <div id="resultCard" class="card" style="display:none;">
+    <h3>Your Trip Plan</h3>
+    <div id="plan"></div><br/>
+    <button id="downloadBtn" class="btn btn-primary">Download Plan</button>
+  </div>
+
+<script>
+const API_BASE = 'http://localhost:4000/api'; // change if server in different place
+let token = localStorage.getItem('token') || null;
+const userInfoDiv = document.getElementById('userInfo');
+
+function showUser(){
+  if(token){
+    userInfoDiv.innerText = 'Logged in';
+  } else userInfoDiv.innerText = 'Not logged in';
+}
+showUser();
+
+document.getElementById('signup').onclick = async () => {
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const res = await fetch(API_BASE+'/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,email,password})});
+  const j = await res.json();
+  if(res.ok){ token = j.token; localStorage.setItem('token', token); showUser(); alert('Signed up'); }
+  else alert(j.error || JSON.stringify(j));
+};
+
+document.getElementById('login').onclick = async () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const res = await fetch(API_BASE+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email,password})});
+  const j = await res.json();
+  if(res.ok){ token = j.token; localStorage.setItem('token', token); showUser(); alert('Logged in'); }
+  else alert(j.error || JSON.stringify(j));
+};
+
+document.getElementById('planBtn').onclick = () => {
+  document.getElementById('formCard').style.display = 'block';
+  window.scrollTo(0, document.getElementById('formCard').offsetTop);
+};
+
+document.getElementById('generate').onclick = async () => {
+  if(!token) return alert('Please login first');
+  const from = document.getElementById('from').value;
+  const to = document.getElementById('to').value;
+  const days = document.getElementById('days').value;
+  const type = document.querySelector('input[name="type"]:checked').value;
+
+  document.getElementById('loading').style.display = 'block';
+  document.getElementById('resultCard').style.display = 'none';
+
+  try{
+    const res = await fetch(API_BASE + '/trips/generate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+      body: JSON.stringify({ from, to, days: Number(days), type })
+    });
+    const j = await res.json();
+    document.getElementById('loading').style.display = 'none';
+    if(!res.ok){ alert(j.error || JSON.stringify(j)); return; }
+
+    const plan = j.aiPlan;
+    document.getElementById('plan').innerText = plan;
+    document.getElementById('resultCard').style.display = 'block';
+
+    // download button create
+    document.getElementById('downloadBtn').onclick = () => {
+      const blob = new Blob([plan], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `trip-${from}-${to}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+  }catch(err){
+    document.getElementById('loading').style.display = 'none';
+    alert('Network error: ' + err.message);
+  }
+};
+</script>
+</body>
+</html>

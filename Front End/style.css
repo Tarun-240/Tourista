@@ -1,0 +1,455 @@
+/* Define custom Tailwind configuration */
+:root {
+    --logo-color: #FFFFFF;
+    --primary-color: #F06D45;
+    /* Orange */
+    --secondary-color: #B75774;
+    /* Rose/Pink */
+    --accent-color: #6E3CB0;
+    /* Violet */
+    --light-bg: #f9f4f1;
+    /* Light background color for the new section */
+}
+
+/* Apply the custom font and make the body full height for centering */
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+}
+
+/* Styling for the .banner (Wrapper) element */
+.banner {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.6)), url(hero-india-Ch5TWHAT.jpg) no-repeat center center/cover;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    padding: 0 4%;
+    box-sizing: border-box;
+}
+
+/* Styling for the .navbar */
+
+    .navbar {
+        /* Remove horizontal padding here; add it to the outer container for edge-to-edge background image */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 5%;
+        /* Use percentage or rem for padding to push content away from screen edges */
+        width: 100%;
+        /* Ensure all navbar content is on top of the banner image filter */
+        position: relative;
+        z-index: 20;
+    }
+
+
+/* Styling for the .logo */
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    /* Reset font properties as they are now handled by the .logo-text or are irrelevant for the image */
+    font-size: 0;
+    font-weight: normal;
+}
+.logo img{
+    height: 150px;
+    width: auto;
+    display: block !important;
+}
+.logo .logo-text {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--logo-color);
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: none;
+}
+
+
+.navbar .logo {
+    width: 150px;
+    height: 40px;
+}
+
+/* Styling for the navigation list */
+.navbar ul {
+    display: none;
+    /* Hidden by default on mobile */
+}
+
+@media (min-width: 768px) {
+    .navbar ul {
+        display: flex;
+        list-style: none;
+        gap: 1.5rem;
+        align-items: center;
+    }
+
+    /* Ensure the logo image is hidden on desktop to show the text fallback */
+    /* .navbar img { 
+        display: none; 
+    } */
+
+    /* Show the logo text on desktop */
+    /* .logo::before { 
+        content: "Tourista"; 
+    } */
+}
+
+@media (max-width: 767px) {
+
+    /* Style for the visible button/link on mobile (Sign Up) */
+    .navbar ul li a.btn-nav {
+        /* This ensures the Sign Up button is styled correctly on mobile if visible */
+        padding: 0.5rem 1rem;
+        border: 1px solid white;
+        border-radius: 0.5rem;
+    }
+
+    /* On mobile, only display the 'Sign Up' link (last child) as an action button */
+    .navbar ul {
+        display: flex;
+        list-style: none;
+        gap: 1rem;
+    }
+
+    .navbar ul li:first-child {
+        display: none;
+        /* Hide Explore States link on small screens */
+    }
+}
+
+.navbar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Custom style for the Sign Up button link on desktop */
+.navbar ul li a.btn-nav {
+    color: var(--primary-color);
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    /* Fully rounded */
+    font-weight: 700;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar ul li a.btn-nav:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-bottom: none;
+}
+
+
+.navbar ul li a:hover:not(.btn-nav) {
+    color: var(--primary-color);
+}
+
+/* Styling for the .active link */
+.navbar ul li a.active {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--primary-color);
+}
+
+/* ========================================================= */
+/* --- UPDATED RESPONSIVE HERO SECTION STYLES START HERE --- */
+/* ========================================================= */
+
+/* Styling for the .center content block */
+.center {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
+    /* Add padding to prevent content from touching screen edges on mobile */
+    padding: 0 1rem;
+}
+
+/* --- Mobile First (320px) --- */
+.center h1 {
+    /* Base size for smallest screens (approx. 320px) */
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+.center h2 {
+    /* Base size for smallest screens (approx. 320px) */
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 2rem;
+    /* Reduced margin */
+    color: rgb(255, 255, 255);
+}
+
+/* --- Small Mobile (375px & 425px) --- */
+@media (min-width: 375px) {
+    .center h1 {
+        font-size: 3rem;
+    }
+
+    .center h2 {
+        font-size: 1.4rem;
+    }
+}
+
+/* --- Tablet (768px) --- */
+@media (min-width: 768px) {
+    .center h1 {
+        /* Standard desktop/tablet size */
+        font-size: 4rem;
+    }
+
+    .center h2 {
+        /* Standard desktop/tablet size */
+        font-size: 1rem;
+    }
+
+    .buttons {
+        gap: 2rem;
+        /* Increase button gap slightly */
+    }
+
+    .buttons button {
+        padding: 0.85rem 3rem;
+        /* Slightly larger buttons */
+    }
+}
+
+/* --- Laptop/Desktop (1024px and up) --- */
+@media (min-width: 1024px) {
+    .center h1 {
+        /* Full desktop size */
+        font-size: 5rem;
+    }
+
+    .center h2 {
+        /* Full desktop size */
+        font-size: 2rem;
+        margin-bottom: 2.5rem;
+    }
+}
+
+/* --- Large Desktop (1440px and up) --- */
+@media (min-width: 1440px) {
+    .center h1 {
+        /* Maybe slightly larger for high resolution */
+        font-size: 5.5rem;
+    }
+
+    .center h2 {
+        font-size: 2.25rem;
+    }
+}
+
+/* --- Ultra HD (2560px) --- */
+@media (min-width: 2560px) {
+    .center h1 {
+        /* Max out size for huge screens */
+        font-size: 7rem;
+    }
+
+    .center h2 {
+        font-size: 3rem;
+    }
+}
+
+/* Styling for the .buttons container */
+.buttons {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.buttons button {
+    padding: 0.75rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, transform 0.1s;
+}
+
+/* ========================================================= */
+/* --- UPDATED RESPONSIVE HERO SECTION STYLES END HERE --- */
+/* ========================================================= */
+
+
+/* Styling for the default button (Explore More) */
+.buttons button:not(.btn2) {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.buttons button:not(.btn2):hover {
+    background-color: #e0653d;
+}
+
+/* Styling for the .btn2 button (Explore States) */
+.buttons .btn2 {
+    background-color: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.buttons .btn2:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.buttons .btn2:hover .fa-map-marker-alt {
+    color: white;
+    /* Ensure the icon color changes on hover */
+    margin: px 0;
+}
+
+/* --- Feature Section Styles --- */
+.feature-section {
+    background-color: var(--light-bg);
+    padding: 5rem 1rem;
+    text-align: center;
+}
+
+.feature-section h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+    /* Uses the rose/pink color */
+    margin-bottom: 3rem;
+}
+
+.feature-grid {
+    display: grid;
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+@media (min-width: 768px) {
+    .feature-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns on desktop */
+    }
+}
+
+.feature-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease-in-out;
+    cursor: default;
+    text-align: center;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    /* Moves card up slightly on hover */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+    /* Darker shadow on hover */
+}
+
+/* Consistent styling for card titles */
+.feature-card .card-title,
+.feature-card .card {
+    font-size: 1.5rem;
+    /* Increased size for title */
+    font-weight: 700;
+    color: #333;
+    /* Darker text for readability */
+    margin: 1rem 0 0.5rem 0;
+}
+
+.feature-card .card-text {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.feature-card .card-icon {
+    margin-bottom: 1rem;
+}
+
+.feature-card .card-icon i {
+    font-size: 2.5rem;
+    /* Standardized icon size */
+}
+
+.explore {
+    height: 400px;
+    background: linear-gradient(to right, #ffe8e0, #f9f4f1);
+
+    text-align: center;
+    padding: 40px;
+    /* max-width: 600px; */
+    /* Optional: Slightly darker text color for better readability */
+    color: #333;
+}
+
+.explore .main-heading {
+    font-size: 2.5em;
+    font-weight: 600;
+    /* Semi-bold */
+    margin-bottom: 15px;
+}
+
+.subtext {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* --- Button Styling --- */
+#cta-button {
+    background-color: #ff7a4b;
+    /* Bright orange color */
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow for depth */
+}
+
+#cta-button:hover {
+    background-color: #e56a3e;
+    /* Slightly darker orange on hover */
+}
+
+.logo-icon {
+    margin-bottom: 20px;
+
+}
+
+.icon-svg {
+    /* Set the size of the SVG container */
+    width: 60px;
+    height: 60px;
+}
