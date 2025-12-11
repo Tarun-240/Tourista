@@ -1,2 +1,2 @@
 # Tourista
-AI Powered Trip Planner
+Trip Planner
