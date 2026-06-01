@@ -8,7 +8,7 @@ import { auth } from "@/lib/firebase";
 import { Button } from "@/components/ui/Button";
 import { Typography } from "@/components/ui/Typography";
 
-export default function LoginPage() {
+function LoginContent() {
   const [isLogin, setIsLogin] = React.useState(true);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -162,5 +162,13 @@ export default function LoginPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <React.Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <LoginContent />
+    </React.Suspense>
   );
 }

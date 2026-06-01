@@ -2,10 +2,10 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Loader2 } from "lucide-react";
 
-export function ProtectedRoute({ children }: { children: React.ReactNode }) {
+function ProtectedRouteInner({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
@@ -31,4 +31,16 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
   }
 
   return <>{children}</>;
+}
+
+export function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <Loader2 className="w-10 h-10 animate-spin text-primary" />
+      </div>
+    }>
+      <ProtectedRouteInner>{children}</ProtectedRouteInner>
+    </Suspense>
+  );
 }
