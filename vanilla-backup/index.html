@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tourista — India's Luxury AI Travel Itinerary Planner</title>
+  <meta name="description" content="Plan customized high-end itineraries across India instantly. Tourista uses advanced intelligence to curate perfect stays, routes, and experiences.">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- =========================================================
+       GLOBAL HEADER (Sticky Glassmorphic)
+       ========================================================= -->
+  <header id="global-header">
+    <div class="container">
+      <nav class="navbar" role="navigation" aria-label="Main Navigation">
+        <!-- Elegant serif wordmark logo -->
+        <a href="#" class="logo-serif" id="logo-link">
+          Tourista<span>.</span>
+        </a>
+
+        <!-- Desktop navigation links -->
+        <ul class="nav-links">
+          <li class="nav-item active" data-view="home"><a href="#home">Explore</a></li>
+          <li class="nav-item" data-view="explore"><a href="#explore">Destinations</a></li>
+          <li class="nav-item" data-view="planner"><a href="#planner">AI Planner</a></li>
+          <li class="nav-item" data-view="saved"><a href="#saved">Saved Trips</a></li>
+          <li class="nav-item" data-view="blog"><a href="#blog">Blog</a></li>
+          <li class="nav-item" data-view="contact"><a href="#contact">Contact</a></li>
+        </ul>
+
+        <!-- Right navigation actions -->
+        <div class="nav-right-actions">
+          <!-- Dark Mode Toggle -->
+          <button class="dark-mode-toggle" id="dark-mode-toggle-btn" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+            <svg class="dm-icon dm-icon-moon" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+            <svg class="dm-icon dm-icon-sun" viewBox="0 0 24 24" style="display:none;"><path d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z"/></svg>
+          </button>
+
+          <button class="btn btn-primary btn-sm auth-trigger-btn" id="nav-auth-btn">
+            Get Started
+          </button>
+          
+          <!-- User Profile Dropdown Menu (Hidden by default, shown via auth state) -->
+          <div class="user-profile-menu" id="user-profile-btn" aria-haspopup="true" aria-expanded="false">
+            <div class="avatar-placeholder" id="user-avatar">JD</div>
+            <div class="user-dropdown" id="user-dropdown-menu">
+              <div class="dropdown-header">
+                <h5 id="dropdown-user-name">John Doe</h5>
+                <p id="dropdown-user-email">john.doe@example.com</p>
+              </div>
+              <div class="dropdown-item" data-view="saved">
+                <svg class="meta-icon-svg" viewBox="0 0 24 24" style="width:16px; height:16px; margin-right:4px;"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                My Saved Trips
+              </div>
+              <div class="dropdown-item" data-view="planner">
+                <svg class="meta-icon-svg" viewBox="0 0 24 24" style="width:16px; height:16px; margin-right:4px;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+                Create New Plan
+              </div>
+              <div class="dropdown-item signout-trigger" id="dropdown-signout-btn">
+                Sign Out
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile hamburger menu button -->
+          <button class="hamburger" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Slide-out Mobile Navigation Drawer -->
+  <aside class="mobile-nav-panel" id="mobile-nav-drawer">
+    <ul class="mobile-nav-links">
+      <li class="mobile-nav-item active" data-view="home"><a href="#home">Explore</a></li>
+      <li class="mobile-nav-item" data-view="explore"><a href="#explore">Destinations</a></li>
+      <li class="mobile-nav-item" data-view="planner"><a href="#planner">AI Planner</a></li>
+      <li class="mobile-nav-item" data-view="saved"><a href="#saved">Saved Trips</a></li>
+      <li class="mobile-nav-item" data-view="blog"><a href="#blog">Blog</a></li>
+      <li class="mobile-nav-item" data-view="contact"><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="margin-top: auto; display: flex; flex-direction: column; gap: 1rem;">
+      <button class="btn btn-primary auth-trigger-btn" id="mobile-drawer-auth-btn" style="width: 100%;">
+        Get Started
+      </button>
+      <button class="btn btn-outline" id="mobile-drawer-signout-btn" style="width: 100%; display: none;">
+        Sign Out
+      </button>
+    </div>
+  </aside>
+
+  <!-- =========================================================
+       MAIN PAGES AND SECTIONS CONTAINER
+       ========================================================= -->
+  <main>
+
+    <!-- -------------------------------------------------------
+         PAGE 2: HOMEPAGE / LANDING VIEW
+         ------------------------------------------------------- -->
+    <section class="view-section active" id="view-home">
+      <!-- Hero Section -->
+      <section class="hero">
+        <img class="hero-bg" src="https://images.unsplash.com/photo-1524492449527-180b7e44b8d6?auto=format&fit=crop&w=1600&q=80" alt="Beautiful Indian Palace">
+        <div class="container">
+          <span class="badge badge-accent" style="margin-bottom: 1.5rem;">Luxury Travel Reimagined</span>
+          <h1>Explore India,<br>Your Way</h1>
+          <p class="hero-subtitle">Indulge in tailored travel itineraries designed by advanced AI, balancing luxury heritage hotels, curated private routes, and slow-travel local gems.</p>
+          <div class="hero-cta-group">
+            <button class="btn btn-accent" id="hero-planner-btn">Plan with AI</button>
+            <button class="btn btn-outline-white" id="hero-explore-btn">Explore Destinations</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Floating Overlapping Search Bar -->
+      <section class="container quick-search-wrapper">
+        <div class="glass-card quick-search-card">
+          <form class="quick-search-form" id="quick-search-bar-form">
+            <div class="quick-search-input-container">
+              <!-- Search Icon SVG -->
+              <svg class="search-icon-svg" viewBox="0 0 24 24">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+              </svg>
+              <input type="text" class="quick-search-input" id="nl-search-input" placeholder="Try 'Take me to beaches in Goa for 4 days' or 'Rajasthan luxury trip for 7 days'..." required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Featured Destinations Grid -->
+      <section class="container featured-destinations">
+        <div class="section-header">
+          <span class="badge badge-accent">Curated Enclaves</span>
+          <h2>Timeless Horizons</h2>
+          <p>Explore some of the most sought-after states in India, selected for their outstanding heritage, natural wonders, and bespoke hospitality.</p>
+        </div>
+
+        <div class="destinations-grid">
+          <!-- Card 1: Rajasthan -->
+          <article class="dest-card featured-dest-card" data-dest="Rajasthan" role="button" tabindex="0">
+            <div class="dest-img-container">
+              <img class="dest-img" src="https://images.unsplash.com/photo-1599661046289-e31897846e41?auto=format&fit=crop&w=600&q=80" alt="Amber Fort Rajasthan">
+              <span class="dest-rating">
+                <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                4.9
+              </span>
+              <span class="dest-tag badge badge-accent">Heritage</span>
+            </div>
+            <div class="dest-info">
+              <h3>Rajasthan</h3>
+              <p>Wander through golden deserts, colossal palaces, and local craft bazaars. Sleep in ancient fortresses converted to high-end resorts.</p>
+              <div class="dest-meta">
+                <span class="dest-days">7 - 10 Days</span>
+                <span class="dest-price">From $2,400</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2: Kerala -->
+          <article class="dest-card featured-dest-card" data-dest="Kerala" role="button" tabindex="0">
+            <div class="dest-img-container">
+              <img class="dest-img" src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?auto=format&fit=crop&w=600&q=80" alt="Kerala Backwaters Houseboat">
+              <span class="dest-rating">
+                <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                4.8
+              </span>
+              <span class="dest-tag badge badge-accent">Wildlife & Relax</span>
+            </div>
+            <div class="dest-info">
+              <h3>Kerala</h3>
+              <p>Glide silently down winding backwaters on luxury houseboats, and experience authentic Ayurvedic healing therapies in dense rainforests.</p>
+              <div class="dest-meta">
+                <span class="dest-days">5 - 8 Days</span>
+                <span class="dest-price">From $1,900</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3: Leh-Ladakh -->
+          <article class="dest-card featured-dest-card" data-dest="Leh-Ladakh" role="button" tabindex="0">
+            <div class="dest-img-container">
+              <img class="dest-img" src="https://images.unsplash.com/photo-1581793745862-99fde7fa73d2?auto=format&fit=crop&w=600&q=80" alt="Leh Ladakh Mountains">
+              <span class="dest-rating">
+                <svg class="star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                4.95
+              </span>
+              <span class="dest-tag badge badge-accent">Mountains</span>
+            </div>
+            <div class="dest-info">
+              <h3>Leh-Ladakh</h3>
+              <p>Ascend into the sky. Experience striking high-altitude salt lakes, centuries-old Buddhist monasteries, and private glamping under stars.</p>
+              <div class="dest-meta">
+                <span class="dest-days">6 - 9 Days</span>
+                <span class="dest-price">From $2,800</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section class="how-it-works">
+        <div class="container">
+          <div class="section-header">
+            <span class="badge badge-accent">Intuitive Crafting</span>
+            <h2>How It Works</h2>
+            <p>Seamlessly build an itinerary that mirrors your tastes in under three minutes.</p>
+          </div>
+
+          <div class="steps-sequence">
+            <!-- Step 1 -->
+            <div class="step-item">
+              <div class="step-number-node">1</div>
+              <h3>Choose Destination</h3>
+              <p>Type in your target region or tell the AI what atmosphere you are craving.</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-item">
+              <div class="step-number-node">2</div>
+              <h3>Let AI Customize</h3>
+              <p>Set dates, select pace and style parameters, and watch the system generate routes.</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-item">
+              <div class="step-number-node">3</div>
+              <h3>Pack & Go</h3>
+              <p>Download your complete PDF guide, save details to your profile, and share with friends.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- -------------------------------------------------------
+         PAGE 3: DESTINATIONS BROWSE PAGE (EXPLORE VIEW)
+         ------------------------------------------------------- -->
+    <section class="view-section" id="view-explore">
+      <div class="container explore-section">
+        <div class="section-header" style="margin-bottom: 2rem;">
+          <span class="badge badge-accent">Curated Directory</span>
+          <h2>Explore The Subcontinent</h2>
+          <p>Refine our hand-picked collection of India's finest enclaves by activities, durations, and custom travel budgets.</p>
+        </div>
+
+        <!-- Mobile Filter Chip Bar (Horizontal scrollable, shown only on tablet/mobile) -->
+        <div class="mobile-filter-bar" id="mobile-filter-chips">
+          <button class="duration-chip active" data-category="all">All Spots</button>
+          <button class="duration-chip" data-category="beaches">Beaches</button>
+          <button class="duration-chip" data-category="mountains">Mountains</button>
+          <button class="duration-chip" data-category="heritage">Heritage</button>
+          <button class="duration-chip" data-category="wildlife">Wildlife</button>
+        </div>
+
+        <div class="explore-layout">
+          <!-- Sticky Left Filter Sidebar (Desktop) -->
+          <aside class="glass-card filter-sidebar" aria-label="Filters">
+            
+            <!-- Category Filters -->
+            <div class="filter-group">
+              <h4>Atmosphere</h4>
+              <div class="filter-categories">
+                <button class="category-chip-btn active" data-category="all">
+                  All Destinations <span class="category-count" id="count-all">(6)</span>
+                </button>
+                <button class="category-chip-btn" data-category="beaches">
+                  Beaches <span class="category-count" id="count-beaches">(2)</span>
+                </button>
+                <button class="category-chip-btn" data-category="mountains">
+                  Mountains <span class="category-count" id="count-mountains">(2)</span>
+                </button>
+                <button class="category-chip-btn" data-category="heritage">
+                  Heritage <span class="category-count" id="count-heritage">(2)</span>
+                </button>
+                <button class="category-chip-btn" data-category="wildlife">
+                  Wildlife <span class="category-count" id="count-wildlife">(1)</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Custom Budget Slider -->
+            <div class="filter-group">
+              <h4>Max Budget (USD)</h4>
+              <div class="budget-slider-wrapper">
+                <input type="range" class="range-slider" id="budget-range-input" min="1000" max="5000" step="500" value="5000">
+                <div class="slider-labels">
+                  <span>$1,000</span>
+                  <span class="budget-val-indicator" id="budget-value-display">$5,000</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Duration Chips Selection -->
+            <div class="filter-group">
+              <h4>Duration</h4>
+              <div class="duration-chips" id="duration-filter-group">
+                <button class="duration-chip active" data-duration="all">All</button>
+                <button class="duration-chip" data-duration="short">3-5 Days</button>
+                <button class="duration-chip" data-duration="medium">6-8 Days</button>
+                <button class="duration-chip" data-duration="long">9+ Days</button>
+              </div>
+            </div>
+
+          </aside>
+
+          <!-- Right Grid of Results with Dynamic Multi-Image Carousel Slider -->
+          <section class="explore-grid" id="explore-results-grid">
+            <!-- Dynamic Grid cards will be populated here by JavaScript -->
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         PAGE 4: AI TRIP PLANNER PAGE
+         ------------------------------------------------------- -->
+    <section class="view-section" id="view-planner">
+      <div class="container planner-section">
+        
+        <!-- Planner Container -->
+        <div class="planner-container">
+          
+          <!-- Wizard Step Navigation header -->
+          <div class="wizard-progress" id="wizard-progress-bar">
+            <div class="progress-track-line" id="wizard-track-line"></div>
+            
+            <div class="wizard-step-node active" data-step="1">
+              <div class="node-circle">1</div>
+              <span class="node-label">Destination</span>
+            </div>
+            <div class="wizard-step-node" data-step="2">
+              <div class="node-circle">2</div>
+              <span class="node-label">Style & Budget</span>
+            </div>
+            <div class="wizard-step-node" data-step="3">
+              <div class="node-circle">3</div>
+              <span class="node-label">Pace</span>
+            </div>
+          </div>
+
+          <!-- The Interactive Form Wizard Card -->
+          <div class="glass-card wizard-card" id="wizard-card-element">
+            <form id="ai-planner-form">
+              
+              <!-- STEP 1: Destination and Date -->
+              <div class="wizard-form-step active" data-step="1">
+                <h3>Select Your Escape</h3>
+                <p class="step-intro">Indicate your dream destination and travel timelines below.</p>
+                
+                <div class="form-field-group autocomplete-container">
+                  <label class="form-label-bold" for="planner-destination-input">Destination</label>
+                  <input type="text" class="planner-text-input" id="planner-destination-input" placeholder="e.g. Goa, Kerala, Rajasthan, Leh-Ladakh..." autocomplete="off" required>
+                  <div class="autocomplete-suggestions" id="planner-suggestions-list">
+                    <!-- Suggested entries populated by JS -->
+                  </div>
+                </div>
+
+                <div class="form-field-group">
+                  <label class="form-label-bold">Travel Dates</label>
+                  <!-- Calendar Selector Mockup UI -->
+                  <div class="calendar-mock-ui">
+                    <div class="calendar-header">
+                      <h5 id="calendar-month-title">October 2026</h5>
+                      <div style="display:flex; gap:0.5rem;">
+                        <button type="button" class="calendar-nav-btn" id="cal-prev-month" aria-label="Previous Month">
+                          <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                        </button>
+                        <button type="button" class="calendar-nav-btn" id="cal-next-month" aria-label="Next Month">
+                          <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="calendar-weekdays">
+                      <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                    </div>
+                    <div class="calendar-days-grid" id="calendar-days-element">
+                      <!-- Grid populated dynamically by JS -->
+                    </div>
+                  </div>
+                  <input type="hidden" id="planner-start-date" value="2026-10-12">
+                  <input type="hidden" id="planner-end-date" value="2026-10-15">
+                </div>
+              </div>
+
+              <!-- STEP 2: Style and Budget Selection Cards -->
+              <div class="wizard-form-step" data-step="2">
+                <h3>Style & Investment</h3>
+                <p class="step-intro">Tailor the financial profile and activities of your itinerary.</p>
+
+                <!-- Budget Tier Selection Cards -->
+                <div class="form-field-group">
+                  <label class="form-label-bold">Budget Tier</label>
+                  <div class="budget-cards-row">
+                    <!-- Tier 1: Budget -->
+                    <div class="budget-select-card" data-budget="budget">
+                      <div class="budget-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                      </div>
+                      <h4>Bespoke Economy</h4>
+                      <p>Charming boutique guesthouses & clean transport.</p>
+                    </div>
+                    <!-- Tier 2: Moderate (Default) -->
+                    <div class="budget-select-card active" data-budget="moderate">
+                      <div class="budget-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-2.01-1.39-3.56-3.51-4.02V3h-3v2.01c-2.43.53-4.18 2.11-4.18 4.15 0 2.51 2.05 3.77 5.38 4.58 2.58.6 3.1 1.38 3.1 2.39 0 1.2-1.07 1.8-2.73 1.8-2.02 0-2.77-.92-2.88-2.1H6.02c.1 2.42 1.95 3.96 4.18 4.43V21h3v-2.03c2.5-.47 4.2-2.08 4.2-4.19 0-3.04-2.52-3.88-5.6-4.58z"/></svg>
+                      </div>
+                      <h4>Balanced Classic</h4>
+                      <p>Premium 4-star properties, select private guides.</p>
+                    </div>
+                    <!-- Tier 3: Luxury -->
+                    <div class="budget-select-card" data-budget="luxury">
+                      <div class="budget-card-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6zm-1 7h2v2h-2v-2zm0-4h2v2h-2V9z"/></svg>
+                      </div>
+                      <h4>Ultra Luxury</h4>
+                      <p>Opulent Palace hotels, private chauffeurs, elite curators.</p>
+                    </div>
+                  </div>
+                  <input type="hidden" id="planner-budget-value" value="moderate">
+                </div>
+
+                <!-- Travel Style tags -->
+                <div class="form-field-group">
+                  <label class="form-label-bold">Travel Style</label>
+                  <div class="travel-tags-grid">
+                    <button type="button" class="tag-select-chip active" data-style="romantic">
+                      <svg class="tag-check-svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      Romantic
+                    </button>
+                    <button type="button" class="tag-select-chip" data-style="solo">
+                      <svg class="tag-check-svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      Solo Explorer
+                    </button>
+                    <button type="button" class="tag-select-chip" data-style="family">
+                      <svg class="tag-check-svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      Family
+                    </button>
+                    <button type="button" class="tag-select-chip" data-style="friends">
+                      <svg class="tag-check-svg" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                      Group of Friends
+                    </button>
+                  </div>
+                  <input type="hidden" id="planner-style-value" value="romantic">
+                </div>
+              </div>
+
+              <!-- STEP 3: Pace Selection segmented controls -->
+              <div class="wizard-form-step" data-step="3">
+                <h3>Travel Tempo</h3>
+                <p class="step-intro">How active do you want your scheduled days to be?</p>
+
+                <div class="form-field-group">
+                  <label class="form-label-bold" style="text-align:center;">Daily Pace</label>
+                  <div class="pace-segmented-control">
+                    <button type="button" class="pace-option-btn" data-pace="relaxed">Relaxed</button>
+                    <button type="button" class="pace-option-btn active" data-pace="moderate">Moderate</button>
+                    <button type="button" class="pace-option-btn" data-pace="fast-paced">Fast-paced</button>
+                  </div>
+                  <input type="hidden" id="planner-pace-value" value="moderate">
+                </div>
+              </div>
+
+              <!-- Wizard navigation action buttons -->
+              <div class="wizard-buttons">
+                <button type="button" class="btn-back" id="wizard-back-btn" style="visibility: hidden;">
+                  <!-- Left Chevron SVG -->
+                  <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor;"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+                  Back
+                </button>
+                <button type="button" class="btn btn-primary" id="wizard-next-btn">Next Step</button>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- ==========================================
+               ANIMATED SKELETON LOADER STATE
+               ========================================== -->
+          <div class="planner-loading-state" id="planner-loader-screen">
+            <div class="loading-illustration">
+              <!-- Compass Spinner SVG -->
+              <svg class="compass-spinner" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm1-13h-2v4H7v2h4v4h2v-4h4v-2h-4V7z"/>
+              </svg>
+            </div>
+            <h3>Generating Itinerary</h3>
+            <p class="loading-subtext" id="loading-slogan-text">Curating authentic experiences...</p>
+
+            <!-- Skeleton Outlines -->
+            <div class="skeleton-results-mock">
+              <div class="skeleton-sidebar">
+                <div class="shimmer-block skeleton-btn-shimmer"></div>
+                <div class="shimmer-block skeleton-btn-shimmer" style="width:85%;"></div>
+                <div class="shimmer-block skeleton-btn-shimmer" style="width:90%;"></div>
+              </div>
+              <div class="skeleton-content">
+                <div class="shimmer-block skeleton-title"></div>
+                <div class="shimmer-block skeleton-line"></div>
+                <div class="shimmer-block skeleton-line"></div>
+                <div class="shimmer-block skeleton-line"></div>
+                <div class="shimmer-block skeleton-card" style="margin-top: 1rem;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               ITINERARY RESULTS DASHBOARD VIEW
+               ========================================== -->
+          <div class="itinerary-dashboard" id="planner-itinerary-dashboard">
+            
+            <div class="itinerary-header">
+              <div class="itinerary-title-desc">
+                <span class="badge badge-success" style="margin-bottom:0.75rem;">AI Crafted Draft</span>
+                <h2 id="iti-dest-title">Golden Triangles, Rajasthan</h2>
+                <p>
+                  <span class="itinerary-meta-item">
+                    <svg class="meta-icon-svg" viewBox="0 0 24 24"><path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+                    <span id="iti-meta-dates">Oct 12 - Oct 15</span>
+                  </span>
+                  <span class="itinerary-meta-item">
+                    <svg class="meta-icon-svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/></svg>
+                    <span id="iti-meta-budget" style="text-transform:capitalize;">Moderate</span>
+                  </span>
+                </p>
+              </div>
+
+              <!-- Top Action Buttons -->
+              <div class="itinerary-actions">
+                <button class="btn btn-outline" id="iti-modify-btn">
+                  Modify Input
+                </button>
+                <button class="btn btn-primary" id="iti-save-btn">
+                  Save Itinerary
+                </button>
+              </div>
+            </div>
+
+            <!-- Dashboard Columns Layout -->
+            <div class="dashboard-layout">
+              
+              <!-- Left Column: Day timeline navigations -->
+              <aside class="timeline-thread-panel" aria-label="Daily Timeline">
+                <ul class="timeline-list" id="iti-day-tabs-list">
+                  <!-- JS builds tab list items: e.g., Day 1, Day 2, Day 3 -->
+                </ul>
+              </aside>
+
+              <!-- Center/Right Column: Detailed Daily Itinerary -->
+              <section class="timeline-schedule-panel" id="iti-schedule-days-container">
+                <!-- Day Schedule blocks injected by JS -->
+              </section>
+
+            </div>
+
+          </div> <!-- End Itinerary Result -->
+
+        </div> <!-- End Planner Container -->
+      </div>
+    </section>
+
+    <!-- Bottom Floating Action Bar (Visible only when itinerary dashboard is open) -->
+    <div class="sticky-action-bar" id="itinerary-sticky-action-bar">
+      <div class="container">
+        <div class="sticky-action-row">
+          <div class="sticky-action-left">
+            <p>Your itinerary is ready. Save it to invite your travel partners.</p>
+          </div>
+          <div class="sticky-action-right">
+            <button class="btn btn-outline btn-sm" id="iti-pdf-btn" title="Download PDF itinerary">
+              <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor; margin-right:4px;"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+              Download PDF
+            </button>
+            <button class="btn btn-primary btn-sm" id="iti-save-sticky-btn">
+              Save Plan
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- -------------------------------------------------------
+         PAGE 5: SAVED TRIPS / USER DASHBOARD
+         ------------------------------------------------------- -->
+    <section class="view-section" id="view-saved">
+      <div class="container dashboard-section">
+        
+        <!-- User Profile Summary box -->
+        <div class="user-profile-summary">
+          <div class="profile-identity">
+            <div class="profile-avatar-large" id="profile-avatar-node">JD</div>
+            <div class="profile-meta">
+              <h3 id="profile-user-name">Guest Traveler</h3>
+              <p id="profile-user-email">Sign in to save and access itineraries.</p>
+            </div>
+          </div>
+          <div class="profile-actions" id="profile-btn-actions">
+            <!-- Will inject dynamic buttons (Sign out) based on user authentication state -->
+            <button class="btn btn-primary auth-trigger-btn">Sign In</button>
+          </div>
+        </div>
+
+        <!-- Dashboard Categories Selector -->
+        <div class="dashboard-tabs" id="dashboard-tab-headers">
+          <button class="dashboard-tab-btn active" data-tab="upcoming">Upcoming Trips</button>
+          <button class="dashboard-tab-btn" data-tab="completed">Completed</button>
+          <button class="dashboard-tab-btn" data-tab="drafts">Drafts</button>
+        </div>
+
+        <!-- Saved Trips Grid -->
+        <div class="saved-trips-grid" id="dashboard-trips-grid">
+          <!-- JS populates saved travel cards here -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         BLOG SECTION (Added navigation matching link)
+         ------------------------------------------------------- -->
+    <section class="view-section" id="view-blog">
+      <div class="container blog-section">
+        <div class="section-header">
+          <span class="badge badge-accent">Travel Journal</span>
+          <h2>Stories from the Field</h2>
+          <p>Read curated insights, guides, and hotel audits compiled by our team of luxury travel editors.</p>
+        </div>
+
+        <div class="blog-grid">
+          <!-- Article 1 -->
+          <article class="blog-card" data-blog-id="0">
+            <div class="blog-img-container">
+              <img class="blog-img" src="https://images.unsplash.com/photo-1546967191-fdfb13ed6b1e?auto=format&fit=crop&w=600&q=80" alt="Palace dining courtyard">
+            </div>
+            <div class="blog-info">
+              <span class="blog-date">June 2026 • Hotel Review</span>
+              <h3>Inside India's Palace Hotels</h3>
+              <p>A comprehensive review of the iconic Taj Lake Palace and Umaid Bhawan, focusing on architectural conservation and private butler systems.</p>
+              <button class="blog-readmore blog-open-btn" data-blog-id="0">
+                Read Article
+                <svg class="arrow-right-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Article 2 -->
+          <article class="blog-card" data-blog-id="1">
+            <div class="blog-img-container">
+              <img class="blog-img" src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80" alt="Sunset boat on water">
+            </div>
+            <div class="blog-info">
+              <span class="blog-date">May 2026 • Destination Guide</span>
+              <h3>Slow Travel in Kerala</h3>
+              <p>How to experience the Western Ghats mountain range and coastal lagoons of Kerala away from traditional tourist checkpoints.</p>
+              <button class="blog-readmore blog-open-btn" data-blog-id="1">
+                Read Article
+                <svg class="arrow-right-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Article 3 -->
+          <article class="blog-card" data-blog-id="2">
+            <div class="blog-img-container">
+              <img class="blog-img" src="https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=600&q=80" alt="Festival lanterns and light">
+            </div>
+            <div class="blog-info">
+              <span class="blog-date">April 2026 • Cultural Spotlight</span>
+              <h3>The Art of the Monsoons</h3>
+              <p>An editorial investigation on how traditional music and culinary recipes shape travel experiences in Central India during rainfall.</p>
+              <button class="blog-readmore blog-open-btn" data-blog-id="2">
+                Read Article
+                <svg class="arrow-right-svg" viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- -------------------------------------------------------
+         PAGE 6: CONTACT & SUPPORT PAGE
+         ------------------------------------------------------- -->
+    <section class="view-section" id="view-contact">
+      <div class="container contact-section">
+        <div class="contact-layout-split">
+          
+          <!-- Left Column: Contact Form with Floating Labels -->
+          <div class="contact-form-container">
+            <h3>Bespoke Assistance</h3>
+            <p class="intro">Our luxury travel specialists are on call for booking arrangements, villa rentals, and offline custom route creation.</p>
+            
+            <form id="customer-support-form">
+              <!-- Floating label Name input -->
+              <div class="floating-label-group">
+                <input type="text" class="floating-input" id="support-name-input" placeholder=" " required>
+                <label for="support-name-input">Your Full Name</label>
+              </div>
+
+              <!-- Floating label Email input -->
+              <div class="floating-label-group">
+                <input type="email" class="floating-input" id="support-email-input" placeholder=" " required>
+                <label for="support-email-input">Email Address</label>
+              </div>
+
+              <!-- Floating label Message Textarea -->
+              <div class="floating-label-group">
+                <textarea class="floating-textarea" id="support-message-input" placeholder=" " required></textarea>
+                <label for="support-message-input">How can we assist you?</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="align-self: flex-start;">Send Enquiry</button>
+            </form>
+
+            <!-- Support Details -->
+            <div class="support-details-block">
+              <div class="support-info-item">
+                <!-- Phone SVG -->
+                <svg class="support-icon-svg" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                <span>Concierge Phone: <a href="tel:+9122889988">+91 (22) 8899-8800</a></span>
+              </div>
+              <div class="support-info-item">
+                <!-- Mail SVG -->
+                <svg class="support-icon-svg" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                <span>Email Support: <a href="mailto:concierge@tourista.luxury">concierge@tourista.luxury</a></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Borderless FAQ Accordion Section -->
+          <div class="faq-container">
+            <h3>Plan Mechanics</h3>
+            <div class="accordion-list">
+              
+              <!-- Accordion 1 -->
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq-ans-1">
+                  <h4>How does the AI route planner calculate travel timings?</h4>
+                  <!-- Plus/Close icon SVG -->
+                  <svg class="accordion-icon-svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </button>
+                <div class="accordion-panel" id="faq-ans-1">
+                  <div class="accordion-content">
+                    Our AI models ingest real-time road conditions, seasonal weather variations, and railway and regional flight schedules across India. It automatically constructs routes that minimize transit times while incorporating scenic drives, advising early morning departures where traffic is dense.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion 2 -->
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq-ans-2">
+                  <h4>What factors go into selecting dining & lodging cards?</h4>
+                  <!-- Plus/Close icon SVG -->
+                  <svg class="accordion-icon-svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </button>
+                <div class="accordion-panel" id="faq-ans-2">
+                  <div class="accordion-content">
+                    Lodging is filtered through strict hospitality tier ratings (from boutique homestays to five-star palaces) matching your selected budget. Restaurants are curated based on hygienic ratings, local cooking reviews, historical prestige, and specific style profiles (e.g. romantic, kid-friendly).
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion 3 -->
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq-ans-3">
+                  <h4>Can I sync my saved itineraries with other travelers?</h4>
+                  <!-- Plus/Close icon SVG -->
+                  <svg class="accordion-icon-svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </button>
+                <div class="accordion-panel" id="faq-ans-3">
+                  <div class="accordion-content">
+                    Yes. Once you click "Save Itinerary" and sign in, you can press the collaborator invite button to generate a shared link or input your friends' emails to give them view or edit rights on your active travel dashboard.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Accordion 4 -->
+              <div class="accordion-item">
+                <button class="accordion-header" aria-expanded="false" aria-controls="faq-ans-4">
+                  <h4>Can I book these reservations directly through Tourista?</h4>
+                  <!-- Plus/Close icon SVG -->
+                  <svg class="accordion-icon-svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                </button>
+                <div class="accordion-panel" id="faq-ans-4">
+                  <div class="accordion-content">
+                    We currently provide the full blueprint for your travel. By contacting our concierge line below the form, a live agent can handle all reservation bookings, private driver hires, and flight tickets based on your saved planner ID.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       GLOBAL SPLIT-SCREEN LOGIN / SIGN-UP VIEW MODAL
+       ========================================================= -->
+  <div class="auth-overlay-modal" id="global-auth-modal">
+    <div class="auth-modal-card">
+      
+      <!-- Close Button -->
+      <button class="auth-close-btn" id="auth-modal-close" aria-label="Close Authentication Screen">
+        <svg class="close-icon-svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+
+      <!-- Left Column: Travel Editorial Imagery -->
+      <div class="auth-split-visual">
+        <img class="auth-visual-img" src="https://images.unsplash.com/photo-1506461883276-594a12b11cc3?auto=format&fit=crop&w=500&q=80" alt="Beautiful Indian Temple Sunset">
+        <div class="auth-visual-overlay-content">
+          <h3>Begin Your Odyssey</h3>
+          <p>Sign up to save unlimited AI itineraries, invite travel collaborators, and access our editorial travel articles.</p>
+        </div>
+      </div>
+
+      <!-- Right Column: Clean Form with Switchable Views -->
+      <div class="auth-split-form-panel">
+        
+        <!-- View 1: SIGN IN VIEW -->
+        <div class="auth-form-view active" id="auth-view-signin">
+          <h3>Welcome Back</h3>
+          <p class="subtitle">Don't have an account? <button id="auth-switch-to-signup">Sign Up</button></p>
+          
+          <!-- Social Sign In Row -->
+          <div class="auth-social-buttons">
+            <button type="button" class="btn-social" id="signin-google-btn">
+              <svg class="social-logo-svg" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.2-5.136 4.2A5.76 5.76 0 0 1 8.2 12.8a5.76 5.76 0 0 1 5.79-5.8 5.68 5.68 0 0 1 3.93 1.54l3.1-3.1A10.05 10.05 0 0 0 13.99 2 9.99 9.99 0 0 0 4 12a9.99 9.99 0 0 0 9.99 10c5.78 0 9.77-4.06 9.77-9.94 0-.61-.06-1.21-.17-1.78H12.24z"/></svg>
+              Google
+            </button>
+            <button type="button" class="btn-social" id="signin-apple-btn">
+              <svg class="social-logo-svg" viewBox="0 0 24 24"><path fill="#000000" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.2.67-2.92 1.49-.62.71-1.16 1.85-1.01 2.96 1.1.09 2.22-.58 2.94-1.39z"/></svg>
+              Apple
+            </button>
+          </div>
+
+          <div class="auth-divider">
+            <span>or email</span>
+          </div>
+
+          <!-- Direct Form -->
+          <form id="signin-form-element">
+            <div class="input-wrap-saas">
+              <label class="input-label-saas" for="signin-email">Email Address</label>
+              <input type="email" class="auth-input-field" id="signin-email" placeholder="you@example.com" required>
+              <span class="input-error-msg" id="signin-email-error">Invalid email address.</span>
+            </div>
+            
+            <div class="input-wrap-saas" style="margin-bottom: 2rem;">
+              <label class="input-label-saas" for="signin-password">Password</label>
+              <input type="password" class="auth-input-field" id="signin-password" placeholder="••••••••" required>
+              <span class="input-error-msg" id="signin-password-error">Password must be at least 6 characters.</span>
+            </div>
+
+            <a href="javascript:void(0)" class="forgot-pass-anchor" id="forgot-password-link">Forgot password?</a>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;">Sign In</button>
+          </form>
+        </div>
+
+        <!-- View 2: SIGN UP VIEW -->
+        <div class="auth-form-view" id="auth-view-signup">
+          <h3>Create Account</h3>
+          <p class="subtitle">Already have an account? <button id="auth-switch-to-signin">Sign In</button></p>
+          
+          <div class="auth-social-buttons">
+            <button type="button" class="btn-social" id="signup-google-btn">
+              <svg class="social-logo-svg" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.2-5.136 4.2A5.76 5.76 0 0 1 8.2 12.8a5.76 5.76 0 0 1 5.79-5.8 5.68 5.68 0 0 1 3.93 1.54l3.1-3.1A10.05 10.05 0 0 0 13.99 2 9.99 9.99 0 0 0 4 12a9.99 9.99 0 0 0 9.99 10c5.78 0 9.77-4.06 9.77-9.94 0-.61-.06-1.21-.17-1.78H12.24z"/></svg>
+              Google
+            </button>
+            <button type="button" class="btn-social" id="signup-apple-btn">
+              <svg class="social-logo-svg" viewBox="0 0 24 24"><path fill="#000000" d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.2.67-2.92 1.49-.62.71-1.16 1.85-1.01 2.96 1.1.09 2.22-.58 2.94-1.39z"/></svg>
+              Apple
+            </button>
+          </div>
+
+          <div class="auth-divider">
+            <span>or email</span>
+          </div>
+
+          <form id="signup-form-element">
+            <div class="input-wrap-saas">
+              <label class="input-label-saas" for="signup-name">Full Name</label>
+              <input type="text" class="auth-input-field" id="signup-name" placeholder="John Doe" required>
+            </div>
+            
+            <div class="input-wrap-saas">
+              <label class="input-label-saas" for="signup-email">Email Address</label>
+              <input type="email" class="auth-input-field" id="signup-email" placeholder="you@example.com" required>
+              <span class="input-error-msg" id="signup-email-error">Invalid email address.</span>
+            </div>
+
+            <div class="input-wrap-saas" style="margin-bottom: 2rem;">
+              <label class="input-label-saas" for="signup-password">Create Password</label>
+              <input type="password" class="auth-input-field" id="signup-password" placeholder="••••••••" required>
+              <span class="input-error-msg" id="signup-password-error">Password must be at least 6 characters.</span>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;">Create Account</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       GLOBAL FOOTER (4-Column Layout)
+       ========================================================= -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Column 1: Brand -->
+        <div class="footer-col footer-brand">
+          <h3>Tourista<span>.</span></h3>
+          <p>Crafting bespoke itineraries with high-end artificial intelligence for the modern editorial traveler exploring India.</p>
+        </div>
+
+        <!-- Column 2: Quick Links -->
+        <div class="footer-col">
+          <h4>Venture</h4>
+          <ul class="footer-links-list">
+            <li data-view="home"><a href="#home">Home Landing</a></li>
+            <li data-view="explore"><a href="#explore">Destinations Directory</a></li>
+            <li data-view="planner"><a href="#planner">AI Planner Tool</a></li>
+            <li data-view="saved"><a href="#saved">Saved Trips Portal</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Social Medias -->
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <div class="footer-social-icons">
+            <div class="social-circle-btn" aria-label="Twitter">
+              <svg class="social-icon-svg" viewBox="0 0 24 24"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.48.75 2.78 1.9 3.55-.7-.02-1.35-.2-1.92-.53v.05c0 2.04 1.45 3.75 3.38 4.14-.35.1-.73.15-1.11.15-.27 0-.53-.03-.79-.08.53 1.68 2.1 2.9 3.96 2.94-1.45 1.13-3.28 1.81-5.27 1.81-.34 0-.68-.02-1.02-.06C3.9 20.36 6.23 21 8.7 21 16.7 21 21.08 14.38 21.08 8.67v-.56c.86-.62 1.6-1.39 2.19-2.27z"/></svg>
+            </div>
+            <div class="social-circle-btn" aria-label="Instagram">
+              <svg class="social-icon-svg" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            </div>
+            <div class="social-circle-btn" aria-label="Facebook">
+              <svg class="social-icon-svg" viewBox="0 0 24 24"><path d="M9 8H7v3h2v9h4v-9h3.682L17 8h-3V6.75C13 5.925 13.5 5.5 14.5 5.5H17V2h-3c-3.15 0-5 1.8-5 5V8z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 4: Newsletter -->
+        <div class="footer-col">
+          <h4>Bespoke Dispatches</h4>
+          <p class="newsletter-desc">Subscribe to receive seasonal itineraries, hotel launch reviews, and private villa recommendations.</p>
+          <form class="newsletter-form" id="newsletter-form-element">
+            <input type="email" class="newsletter-input" placeholder="Enter your email" required aria-label="Newsletter Email Input">
+            <button type="submit" class="btn-newsletter-submit" aria-label="Submit Newsletter Form">
+              <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer-bottom-row">
+        <span>© 2026 Tourista Luxury Services Ltd. All rights reserved.</span>
+        <div class="footer-bottom-links">
+          <a href="javascript:void(0)" id="footer-privacy-link">Privacy Policy</a>
+          <a href="javascript:void(0)" id="footer-terms-link">Terms of Service</a>
+          <!-- Discrete Sign Out Button (Visible only when user is logged in) -->
+          <button class="footer-signout-btn" id="footer-signout-trigger-btn">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       BLOG ARTICLE READER MODAL
+       ========================================================= -->
+  <div class="blog-reader-overlay" id="blog-reader-modal">
+    <div class="blog-reader-card">
+      <button class="auth-close-btn" id="blog-reader-close" aria-label="Close Article">
+        <svg class="close-icon-svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <div class="blog-reader-hero" id="blog-reader-hero">
+        <img id="blog-reader-img" src="" alt="Article Hero">
+      </div>
+      <div class="blog-reader-body">
+        <span class="blog-date" id="blog-reader-meta"></span>
+        <h2 id="blog-reader-title"></h2>
+        <div class="blog-reader-content" id="blog-reader-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       TOAST NOTIFICATION CONTAINER
+       ========================================================= -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- =========================================================
+       JAVASCRIPT APPLICATION SCRIPT
+       ========================================================= -->
+  <script src="app.js"></script>
+</body>
+</html>

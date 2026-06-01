@@ -1,0 +1,45 @@
+[debug] [2026-06-01T11:35:21.304Z] ----------------------------------------------------------------------
+[debug] [2026-06-01T11:35:21.305Z] Command:       /Users/tarunsai/.nvm/versions/node/v24.16.0/bin/node /Users/tarunsai/.npm/_npx/ba4f1959e38407b5/node_modules/.bin/firebase projects:create tourista-planner-dev -n Tourista
+[debug] [2026-06-01T11:35:21.305Z] CLI Version:   15.19.0
+[debug] [2026-06-01T11:35:21.305Z] Platform:      darwin
+[debug] [2026-06-01T11:35:21.305Z] Node Version:  v24.16.0
+[debug] [2026-06-01T11:35:21.305Z] Time:          Mon Jun 01 2026 17:05:21 GMT+0530 (India Standard Time)
+[debug] [2026-06-01T11:35:21.305Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-01T11:35:21.307Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-06-01T11:35:21.307Z] > authorizing via FIREBASE_TOKEN environment variable
+[warn] ⚠  Authenticating with `FIREBASE_TOKEN` is deprecated and will be removed in a future major version of `firebase-tools`. Instead, use a service account key with `GOOGLE_APPLICATION_CREDENTIALS`: https://cloud.google.com/docs/authentication/getting-started 
+[debug] [2026-06-01T11:35:21.308Z] No OAuth tokens found
+[debug] [2026-06-01T11:35:21.308Z] No OAuth tokens found
+[debug] [2026-06-01T11:35:21.308Z] > refreshing access token with scopes: []
+[debug] [2026-06-01T11:35:21.309Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2026-06-01T11:35:21.309Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-06-01T11:35:21.500Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2026-06-01T11:35:21.500Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2026-06-01T11:35:21.500Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2026-06-01T11:35:21.500Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"tourista-planner-dev","name":"Tourista"}
+[debug] [2026-06-01T11:35:23.995Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 200
+[debug] [2026-06-01T11:35:23.995Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"name":"operations/create_project.global.6602198422745081603"}
+[debug] [2026-06-01T11:35:23.996Z] Checked if tokens are valid: true, expires at: 1780317320500
+[debug] [2026-06-01T11:35:23.996Z] Checked if tokens are valid: true, expires at: 1780317320500
+[debug] [2026-06-01T11:35:23.996Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.6602198422745081603 [none]
+[debug] [2026-06-01T11:35:25.331Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.6602198422745081603 200
+[debug] [2026-06-01T11:35:25.331Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.6602198422745081603 {"name":"operations/create_project.global.6602198422745081603"}
+[debug] [2026-06-01T11:35:25.833Z] [Project Creation Poller] Retrying task index 0
+[debug] [2026-06-01T11:35:25.833Z] Checked if tokens are valid: true, expires at: 1780317320500
+[debug] [2026-06-01T11:35:25.833Z] Checked if tokens are valid: true, expires at: 1780317320500
+[debug] [2026-06-01T11:35:25.834Z] >>> [apiv2][query] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.6602198422745081603 [none]
+[debug] [2026-06-01T11:35:26.144Z] <<< [apiv2][status] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.6602198422745081603 200
+[debug] [2026-06-01T11:35:26.144Z] <<< [apiv2][body] GET https://cloudresourcemanager.googleapis.com/v1/operations/create_project.global.6602198422745081603 {"name":"operations/create_project.global.6602198422745081603","metadata":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.ProjectCreationStatus","gettable":true,"ready":true},"done":true,"response":{"@type":"type.googleapis.com/google.cloudresourcemanager.v1.Project","projectNumber":"25117618773","projectId":"tourista-planner-dev","lifecycleState":"ACTIVE","name":"Tourista","createTime":"2026-06-01T11:35:23.907Z"}}
+[debug] [2026-06-01T11:35:26.146Z] Checked if tokens are valid: true, expires at: 1780317320500
+[debug] [2026-06-01T11:35:26.146Z] Checked if tokens are valid: true, expires at: 1780317320500
+[debug] [2026-06-01T11:35:26.146Z] >>> [apiv2][query] POST https://firebase.googleapis.com/v1beta1/projects/tourista-planner-dev:addFirebase [none]
+[debug] [2026-06-01T11:35:27.664Z] <<< [apiv2][status] POST https://firebase.googleapis.com/v1beta1/projects/tourista-planner-dev:addFirebase 403
+[debug] [2026-06-01T11:35:27.664Z] <<< [apiv2][body] POST https://firebase.googleapis.com/v1beta1/projects/tourista-planner-dev:addFirebase {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2026-06-01T11:35:27.665Z] Request to https://firebase.googleapis.com/v1beta1/projects/tourista-planner-dev:addFirebase had HTTP Error: 403, The caller does not have permission
+[debug] [2026-06-01T11:35:27.667Z] FirebaseError: Request to https://firebase.googleapis.com/v1beta1/projects/tourista-planner-dev:addFirebase had HTTP Error: 403, The caller does not have permission
+    at responseToError (/Users/tarunsai/.npm/_npx/ba4f1959e38407b5/node_modules/firebase-tools/lib/responseToError.js:53:12)
+    at RetryOperation._fn (/Users/tarunsai/.npm/_npx/ba4f1959e38407b5/node_modules/firebase-tools/lib/apiv2.js:333:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+[error] 
+[error] Error: Failed to add Firebase to Google Cloud Platform project. See firebase-debug.log for more info.
