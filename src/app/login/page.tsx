@@ -33,7 +33,15 @@ function LoginContent() {
       router.push(redirectUrl); // Redirect on success
     } catch (err: any) {
       console.error("Auth error:", err.message);
-      setError(err.message || "Failed to authenticate");
+      if (err.code === 'auth/invalid-credential') {
+        setError("Invalid email or password.");
+      } else if (err.code === 'auth/email-already-in-use') {
+        setError("An account already exists with this email.");
+      } else if (err.code === 'auth/weak-password') {
+        setError("Password should be at least 6 characters.");
+      } else {
+        setError("Failed to authenticate. Please check your details.");
+      }
     } finally {
       setLoading(false);
     }
@@ -48,7 +56,11 @@ function LoginContent() {
       router.push(redirectUrl);
     } catch (err: any) {
       console.error("Google Auth error:", err.message);
-      setError(err.message || "Failed to authenticate with Google");
+      // Don't show an error if the user intentionally closed the popup
+      if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
+        return;
+      }
+      setError("Failed to authenticate with Google. Please try again.");
     } finally {
       setLoading(false);
     }
